@@ -83,12 +83,7 @@ export class BookListComponent implements OnInit {
   }
 
   deleteAllItems() {
-    this.api.getItem().pipe(map((x:any)=>
-    {
-      for (let data of x.id) {
-        this.deleteItem(data)
-      }
-    }));
+    this.deleteAllItems();
   }
 
 }

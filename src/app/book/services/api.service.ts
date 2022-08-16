@@ -27,6 +27,12 @@ export class ApiService {
   }
 
   deleteAll() {
-    return this.http.delete<any>(`${environment.url}/books/`);
+    return this.http.delete<any>(`${environment.url}/books/`).pipe(
+      map((x:any) =>{
+        for(let data of x.id){
+          this.deleteItem(data);
+        }
+      })
+    )
   }
 }

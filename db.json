@@ -1,0 +1,46 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Harry Potter and the Goblet of Fire",
+      "author": "J.K. Rowling",
+      "isbn": "hp1"
+    },
+    {
+      "id": 2,
+      "title": "Time Keeper",
+      "author": "unknown",
+      "isbn": "tk2"
+    },
+    {
+      "id": 3,
+      "title": "Sleep Walker",
+      "author": "Chris B.",
+      "isbn": "sw3"
+    },
+    {
+      "id": 4,
+      "title": "Inferno",
+      "author": "Dan Brown",
+      "isbn": "io4"
+    },
+    {
+      "id": 6,
+      "title": "Genesis Book",
+      "author": "Moses",
+      "isbn": "gbm6"
+    },
+    {
+      "id": 5,
+      "title": "Alamat ng Gubat",
+      "author": "Bob Ong",
+      "isbn": "ang5"
+    },
+    {
+      "id": 1111,
+      "title": "asfa",
+      "author": "asfasf",
+      "isbn": "asfasfa"
+    }
+  ]
+}

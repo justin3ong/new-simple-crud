@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Add Book Item :</h1>
+<div mat-dialog-content>
+    <form [formGroup]="newForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Id:</mat-label>
+            <input formControlName="id" matInput placeholder="Number" type="number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Title:</mat-label>
+            <input formControlName="title" matInput placeholder="Title">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Author:</mat-label>
+            <input formControlName="author" matInput placeholder="Name of Author">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>ISBN:</mat-label>
+            <input formControlName="isbn" matInput placeholder="Isbn">
+        </mat-form-field>
+    </form>
+
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 8px" mat-raised-button color="primary" (click)="addItem()">{{actionBtn}}</button>
+</div>

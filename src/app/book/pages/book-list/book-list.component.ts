@@ -1,10 +1,13 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BookItemComponent } from '../../components/book-item/book-item.component';
 import { ApiService } from '../../services/api.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { NgForOf } from '@angular/common';
+import { map, Observable } from 'rxjs';
+
 
 
 @Component({
@@ -20,30 +23,30 @@ export class BookListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, 
+  constructor(private dialog: MatDialog,
     private api: ApiService) { }
 
   openDialog() {
     this.dialog.open(BookItemComponent, {
-      width:'30%'
-    }).afterClosed().subscribe(val=>{
-        this.getAllItems();
+      width: '30%'
+    }).afterClosed().subscribe(val => {
+      this.getAllItems();
     })
   }
 
-  getAllItems(){
+  getAllItems() {
     this.api.getItem()
-    .subscribe({
-      next:(res)=>{
-        console.log(res);
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort
-      },
-      error:(err)=>{
-        alert("Error while fetching data")
-      }
-    })
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.dataSource = new MatTableDataSource(res);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort
+        },
+        error: (err) => {
+          alert("Error while fetching data")
+        }
+      })
   }
 
   ngOnInit(): void {
@@ -59,23 +62,33 @@ export class BookListComponent implements OnInit {
     }
   }
 
-  editItem(row: any){
-    this.dialog.open(BookItemComponent,{
-      width:'30%',
-      data:row
-    }).afterClosed().subscribe(val=>{
-      if(val==='update'){
+  editItem(row: any) {
+    this.dialog.open(BookItemComponent, {
+      width: '30%',
+      data: row
+    }).afterClosed().subscribe(val => {
+      if (val === 'update') {
         this.getAllItems();
       }
     })
   }
 
-  deleteItem(id:number){
+  deleteItem(id: number) {
     this.api.deleteItem(id)
-    .subscribe({next:(res)=>{
-      this.getAllItems();
-    }})
+      .subscribe({
+        next: (res) => {
+          this.getAllItems();
+        }
+      })
   }
 
+  deleteAllItems() {
+    this.api.getItem().pipe(map((x:any)=>
+    {
+      for (let data of x.id) {
+        this.deleteItem(data)
+      }
+    }));
+  }
 
 }
